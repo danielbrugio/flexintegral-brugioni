@@ -1,0 +1,16 @@
+.navBar {
+    display: flex;
+    background: transparent;
+    justify-content: space-around;
+    align-items: center;
+    height: 60px;
+  }
+  
+  .categories {
+    display: flex;
+    align-items: center;
+  }
+
+  button {
+      margin: 100;
+  }
