@@ -1,16 +1,17 @@
 .navBar {
-    display: flex;
-    background: transparent;
-    justify-content: space-around;
-    align-items: center;
-    height: 60px;
-  }
-  
-  .categories {
-    display: flex;
-    align-items: center;
-  }
+  display: flex;
+  background: white;
+  justify-content: space-around;
+  align-items: center;
+  height: 60px;
+}
 
-  button {
-      margin: 100;
-  }
+.navBar__list {
+  display: flex;
+  align-items: center;
+}
+.links {
+  margin: 5px;
+  font-size: 1.2em;
+  color: black;
+}
