@@ -4,7 +4,7 @@ import { Button } from '@mui/material';
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 import {useState} from 'react';
 
-const ItemCount = ({ stock, initial, onAdd }) => {
+const ItemCount = ({ stock = 1, initial = 1, onAdd }) => {
   const [quantity, setQuantity] = useState(initial)
 
   const decrement = () => {
