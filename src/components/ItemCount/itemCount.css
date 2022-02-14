@@ -1,0 +1,11 @@
+.buttons {
+    display: flex;
+    flex-direction: column;
+}
+
+.buttonsQuantity {
+    display: flex;
+    border: solid 1px black;
+    align-items: center;
+    margin: 5px;
+}
