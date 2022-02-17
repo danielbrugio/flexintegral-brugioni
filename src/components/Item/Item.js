@@ -56,7 +56,7 @@ export default function Item({product}) {
       flexDirection: 'column',
       justifyContent: 'center',
       alignItems: 'center' }} >
-      <ItemCount stock={10} initial={1} onAdd={handleOnAdd} />
+      <ItemCount stock={product.stock} initial={1} onAdd={handleOnAdd} />
       </CardActions>
     </Card>
   );
