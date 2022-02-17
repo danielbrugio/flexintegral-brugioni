@@ -1,0 +1,12 @@
+.itemCard {
+    display: flex;
+    flex-direction: column;
+    width: 350px;
+    margin: 20px;
+}
+
+.itemImg {
+    max-width: fit-content;
+    max-height: 200px;
+    align-self: center;
+}
