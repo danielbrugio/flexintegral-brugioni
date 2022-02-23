@@ -3,7 +3,25 @@ import { Navbar, Container, Nav } from "react-bootstrap";
 import Logo from "../assets/Logo.png";
 import { CartIcon } from "../CartIcon/CartIcon";
 
+
 const NavBar = () => {
+
+  const handleSmartphone = () => {
+    console.log('Smartphone')
+  }
+
+  const handleTablet = () => {
+    console.log('Tablet')
+  }
+
+  const handleNotebook = () => {
+    console.log('Notebook')
+  }
+
+  const handleTV = () => {
+    console.log('TV')
+  }
+
   return (
     <Navbar className="navBar" expand="sm">
       <Container>
@@ -18,19 +36,19 @@ const NavBar = () => {
             <Nav.Link className="links" href="#home">
               Home
             </Nav.Link>
-            <Nav.Link className="links" href="#notebooks">
+            <Nav.Link className="links" onClick={handleNotebook}>
               Notebooks
             </Nav.Link>
-            <Nav.Link className="links" href="#smartphones">
+            <Nav.Link className="links" onClick={handleSmartphone}>
               Smartphones
             </Nav.Link>
-            <Nav.Link className="links" href="#tablets">
+            <Nav.Link className="links" onClick={handleTablet}>
               Tablets
             </Nav.Link>
-            <Nav.Link className="links" href="#tv">
+            <Nav.Link className="links" onClick={handleTV}>
               TV
             </Nav.Link>
-            <Nav.Link className="links" href="#itemlistcontainer">
+            <Nav.Link to="/ItemDetailContainer" className="links">
               <CartIcon />
             </Nav.Link>
           </Nav>

@@ -12,3 +12,11 @@ export const getProducts = () => {
         }, 2000)
     })
 }
+
+export const getProduct = () => {
+    return new Promise((resolve) => {
+        setTimeout(() => {
+            resolve(products[0])
+        }, 2000)
+    })
+}

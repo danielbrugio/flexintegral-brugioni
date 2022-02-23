@@ -1,5 +1,5 @@
-import * as React from 'react';
-import './item.css'
+import React from "react";
+import './itemDetail.css'
 import Card from '@mui/material/Card';
 import CardHeader from '@mui/material/CardHeader';
 import CardMedia from '@mui/material/CardMedia';
@@ -8,13 +8,11 @@ import CardActions from '@mui/material/CardActions';
 import Typography from '@mui/material/Typography';
 import ItemCount from '../ItemCount/ItemCount';
 
+export default function ItemDetail({product}) {
+    const handleOnAdd = (quantity) => {
+        console.log(`${quantity} items added to cart`);
+      }
 
-export default function Item({product}) {
-  const handleOnAdd = (quantity) => {
-    console.log(`${quantity} items added to cart`);
-  }
-
-  
   return (
     <>
     <Card className='itemCard'>
@@ -29,13 +27,13 @@ export default function Item({product}) {
             
               </Typography>
             }
-        title={product.title}
-        //subheader={product.description}
+        title={product.name}
+        subheader={product.description}
       />
       <CardMedia
         className='itemImg'
         component="img"
-        image={product.thumbnail}
+        image={product.img}
         //alt={product.name}
       />
       <CardContent>
@@ -61,6 +59,6 @@ export default function Item({product}) {
       </CardActions>
     </Card>
     </>
-  );
+      )
 }
 
