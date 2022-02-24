@@ -2,25 +2,11 @@ import "./NavBar.css";
 import { Navbar, Container, Nav } from "react-bootstrap";
 import Logo from "../assets/Logo.png";
 import { CartIcon } from "../CartIcon/CartIcon";
+import { NavLink } from "react-router-dom";
 
 
 const NavBar = () => {
 
-  const handleSmartphone = () => {
-    console.log('Smartphone')
-  }
-
-  const handleTablet = () => {
-    console.log('Tablet')
-  }
-
-  const handleNotebook = () => {
-    console.log('Notebook')
-  }
-
-  const handleTV = () => {
-    console.log('TV')
-  }
 
   return (
     <Navbar className="navBar" expand="sm">
@@ -33,21 +19,22 @@ const NavBar = () => {
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="navBar__list">
-            <Nav.Link className="links" href="#home">
+            <NavLink to={'/'} className="links">
               Home
-            </Nav.Link>
-            <Nav.Link className="links" onClick={handleNotebook}>
+            </NavLink>
+            <NavLink to={'/category/notebooks'} className="links" >
               Notebooks
-            </Nav.Link>
-            <Nav.Link className="links" onClick={handleSmartphone}>
+            </NavLink>
+            <NavLink to={'/category/martphones'} className="links" >
               Smartphones
-            </Nav.Link>
-            <Nav.Link className="links" onClick={handleTablet}>
+            </NavLink>
+            <NavLink to={'/category/tablets'} className="links" >
               Tablets
-            </Nav.Link>
-            <Nav.Link className="links" onClick={handleTV}>
+            </NavLink>
+            <NavLink to={'/category/tv'} className="links" >
               TV
-            </Nav.Link>
+            </NavLink>
+            
             <Nav.Link to="/ItemDetailContainer" className="links">
               <CartIcon />
             </Nav.Link>

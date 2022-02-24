@@ -31,13 +31,13 @@ export default function Item({product}) {
             
               </Typography>
             }
-        title={product.title}
+        title={product.name}
         subheader={product.description}
       />
       <CardMedia
         className='itemImg'
         component="img"
-        image={product.thumbnail}
+        image={product.img}
         alt={product.name}
       />
       <CardContent>
