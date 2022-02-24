@@ -41,17 +41,8 @@ export default function Item({product}) {
         alt={product.name}
       />
       <CardContent>
-         <Typography variant="body2" color="text.secondary">
-        - Cámara 64MP HR con estabilizador de imagen
-        </Typography>
-        <Typography variant="body2" color="text.secondary">
-        - Resistencia a agua y polvo IP67
-        </Typography>
-        <Typography variant="body2" color="text.secondary">
-        - Batería de 2 días
-        </Typography>
-        <Typography variant="body2" color="text.secondary">
-        - Infinity-O Display
+      <Typography variant="body2" color="text.secondary">
+         Category: {product.category}
         </Typography>
       </CardContent>
       <CardActions sx={{ 
