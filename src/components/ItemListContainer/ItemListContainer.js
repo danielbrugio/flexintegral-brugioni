@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import './ItemListContainer.css';
 import ItemList from '../ItemList/ItemList';
+import { getProducts } from '../../asyncmock';
 
 
 export const ItemListContainer = () => {
@@ -8,14 +9,13 @@ export const ItemListContainer = () => {
 
     
   useEffect(() => {
-    fetch('https://api.mercadolibre.com/sites/MLA/search?q=iphone')
-        .then(response => {
-           return response.json()
-        }).then(res => {
-            setProducts(res.results)
-            console.log(res.results)
-        })
-        
+    getProducts().then(item => {
+        setProducts(item)
+    })
+
+    return (() => {
+        setProducts()
+    })          
 }, [])
 
 

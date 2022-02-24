@@ -23,7 +23,7 @@ export default function ItemDetail({product}) {
               variant='h6'
               color='textPrimary'
               >
-              ${product.price}
+              {/* ${product.price} */}
             
               </Typography>
             }
@@ -34,7 +34,7 @@ export default function ItemDetail({product}) {
         className='itemImg'
         component="img"
         image={product.img}
-        //alt={product.name}
+        alt={product.name}
       />
       <CardContent>
          <Typography variant="body2" color="text.secondary">

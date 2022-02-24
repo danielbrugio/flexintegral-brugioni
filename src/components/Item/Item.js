@@ -7,6 +7,8 @@ import CardContent from '@mui/material/CardContent';
 import CardActions from '@mui/material/CardActions';
 import Typography from '@mui/material/Typography';
 import ItemCount from '../ItemCount/ItemCount';
+import { Link } from 'react-router-dom';
+
 
 
 export default function Item({product}) {
@@ -30,13 +32,13 @@ export default function Item({product}) {
               </Typography>
             }
         title={product.title}
-        //subheader={product.description}
+        subheader={product.description}
       />
       <CardMedia
         className='itemImg'
         component="img"
         image={product.thumbnail}
-        //alt={product.name}
+        alt={product.name}
       />
       <CardContent>
          <Typography variant="body2" color="text.secondary">
@@ -58,6 +60,9 @@ export default function Item({product}) {
       justifyContent: 'center',
       alignItems: 'center' }} >
       <ItemCount stock={product.stock} initial={1} onAdd={handleOnAdd} />
+      <footer>
+        <Link to={`/detail/${product.id}`}>Ver detalle</Link>
+      </footer>
       </CardActions>
     </Card>
     </>
