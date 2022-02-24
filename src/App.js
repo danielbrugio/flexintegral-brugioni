@@ -4,7 +4,12 @@ import ItemDetailContainer from './components/ItemDetailContainer/ItemDetailCont
 import {ItemListContainer} from './components/ItemListContainer/ItemListContainer';
 import NavBar from './components/NavBar/NavBar';
 
-function App() {
+const App = () => {
+
+  const handleSubmit = (e) => {
+    e.preventDefault()
+    console.log('submit')
+  }
 
   return (
     <>
@@ -16,6 +21,10 @@ function App() {
     <Route path='/detail/:productId' element={<ItemDetailContainer />} />    
     </Routes>
     </BrowserRouter>
+    <form onSubmit={handleSubmit}>
+      <input type="text" />
+      <button type="submit">Submit</button>
+    </form>
     </>
   );
 }

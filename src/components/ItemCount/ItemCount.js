@@ -22,11 +22,11 @@ const ItemCount = ({ stock = 1, initial = 1, onAdd }) => {
   return (
     <div className='buttons'>
     <div className='buttonsQuantity'>
-        <Button variant="text"  onClick={decrement}  >
+        <Button variant="text"  onClick={()=> decrement() }  >
               -
           </Button>
           <h5>{quantity}</h5>
-          <Button variant="text"  onClick={increment}  >
+          <Button variant="text"  onClick={()=> increment() }  >
               +
           </Button>
       </div>

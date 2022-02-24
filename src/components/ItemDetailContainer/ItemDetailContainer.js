@@ -6,14 +6,18 @@ import ItemDetail from '../ItemDetail/ItemDetail'
 const ItemDetailContainer = () => {
 
     const [product, setProduct] = useState([])
+    const [loading, setLoading] = useState(true)
+    const [counter, setCounter] = useState('button')
     const {productId} = useParams()
 
     
     useEffect(() => {
         getProduct(productId).then(item => {
             setProduct(item)
-        }).catch(err => {
+        }).catch(err  => {
             console.log(err)
+        }).finally(() => {
+            setLoading(false)
         })
 
         return (() => {
@@ -22,8 +26,25 @@ const ItemDetailContainer = () => {
         
     }, [productId])
 
+    const handleCount = () => {
+        if(counter === 'button'){
+            setCounter('input')
+        } else {
+            setCounter('button')
+        }
+    }
+
     return(
-     <ItemDetail product={product} />
+        <div className="ItemDetailContainer" >
+            <button onClick={handleCount}>Cambiar count</button>
+            { 
+                loading ? 
+                    <h1>Cargando...</h1> :
+                product ? 
+                    <ItemDetail  product={product} inputType={counter}/> :
+                    <h1>El producto no existe</h1> 
+            }
+        </div>
     )
 }
 export default ItemDetailContainer
