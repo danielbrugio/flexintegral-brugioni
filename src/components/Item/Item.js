@@ -52,7 +52,6 @@ export default function Item({product}) {
       alignItems: 'center' }} >
       <footer>
         <Link to={`/detail/${product.id}`}>Ver detalle</Link>
-        <button onClick={handleClick}>Boton</button>
       </footer>
       </CardActions>
     </Card>
