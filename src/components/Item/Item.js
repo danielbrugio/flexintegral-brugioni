@@ -11,12 +11,7 @@ import { Link } from 'react-router-dom';
 
 
 export default function Item({product}) {
-  const handleClick = (e) => {
-    e.stopPropagation()
-    console.log('Hice click en el boton')
-}
-
-  
+    
   return (
     <>
     <Card className='itemCard'>

@@ -3,13 +3,14 @@ import './ItemListContainer.css';
 import ItemList from '../ItemList/ItemList';
 import { getProducts, getProductsByCategory } from '../../asyncmock';
 import { useParams } from 'react-router-dom';
+/* import { useNotificationServices } from '../../services/notification/NotificationServices' */
 
-
-export const ItemListContainer = () => {
+const ItemListContainer = () => {
   const [products, setProducts] = useState([])
   const [loading, setLoading] = useState(true)
-
   const { categoryId } = useParams();
+
+  /* const setNotification = useNotificationServices() */
 
   useEffect(() => {
     if (categoryId) {
@@ -26,20 +27,7 @@ export const ItemListContainer = () => {
       });
     }
   }, [categoryId]);
-    /* getProducts().then(item => {
-        setProducts(item)
-      }).catch(err  => {
-        console.log(err)
-    }).finally(() => {
-        setLoading(false)
-    })
-
-    return (() => {
-        setProducts()
-    })          
-}, []) */
-
-
+    
 
   return <div>
       <h1 className='titulo'>PRODUCTS</h1>
@@ -56,3 +44,4 @@ export const ItemListContainer = () => {
 };
 
 
+export default ItemListContainer

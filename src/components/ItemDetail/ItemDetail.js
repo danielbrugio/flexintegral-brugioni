@@ -10,15 +10,31 @@ import CartContext from "../../context/CartContext";
 import { Link } from "react-router-dom";
 import ItemCount from "../ItemCount/ItemCount";
 import Button from "../Button/Button";
+import { useNotificationServices } from '../../services/notification/NotificationServices'
 
-const ItemDetail = ({ product, quantity }) => {
+
+const ItemDetail = ({ id, name, img, category, description, price, stock }) => {
   const { addItem } = useContext(CartContext);
-  const [counter, setCounter] = useState(quantity);
+  const [counter, setCounter] = useState(0);
 
-  const onAdd = (quantity) => {
-    setCounter(quantity);
-    addItem(product, quantity);
-  };
+  const setNotification = useNotificationServices()
+
+  const handleOnAdd = (quantity) => {
+    setCounter(quantity)
+
+    const productToAdd = {
+      id,
+      name,
+      price,
+      img,
+      category,
+      description,
+      stock
+  }
+
+  addItem(productToAdd, quantity)
+  setNotification('success',`Se agrego ${name} al carrito`)
+}
 
 
   return (
@@ -31,22 +47,22 @@ const ItemDetail = ({ product, quantity }) => {
               variant='h6'
               color='textPrimary'
               >
-              ${product.price}
+              ${price}
             
               </Typography>
             }
-        title={product.name}
-        subheader={product.description}
+        title={name}
+        subheader={description}
       />
       <CardMedia
         className='itemImg'
         component="img"
-        image={product.img}
-        alt={product.name}
+        image={img}
+        alt={name}
       />
       <CardContent>
          <Typography variant="body2" color="text.secondary">
-         Category: {product.category}
+         Category: {category}
         </Typography>
       </CardContent>
       <CardActions sx={{ 
@@ -54,13 +70,10 @@ const ItemDetail = ({ product, quantity }) => {
       flexDirection: 'column',
       justifyContent: 'center',
       alignItems: 'center' }} >
-       {counter ? (
-        <Link to="/cart">
-          <Button name="Ckeckout" />
-        </Link>
-      ) : (
-        <ItemCount stock={product.stock} initial={1} onAdd={onAdd} />
-      )}
+       {counter > 0 ? 
+        <Link to="/cart"> <Button name="Ckeckout" /> </Link>    :
+        <ItemCount stock={stock} initial={1} onAdd={handleOnAdd} />
+      }
       </CardActions>
       
     </Card>
