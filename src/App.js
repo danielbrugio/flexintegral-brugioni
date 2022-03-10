@@ -5,12 +5,14 @@ import ItemListContainer from './components/ItemListContainer/ItemListContainer'
 import NavBar from './components/NavBar/NavBar';
 import { CartContext } from './context/CartContext';
 import Cart from './pages/Cart/Cart';
+import { NotificationServicesProvider } from './services/notification/NotificationServices';
 
 export const MyContext = React.createContext();
 
 const App = () => {
 
   return (
+    <NotificationServicesProvider>
     <CartContext>
     <BrowserRouter>
     <NavBar />
@@ -22,6 +24,7 @@ const App = () => {
     </Routes>
     </BrowserRouter>
     </CartContext>
+    </NotificationServicesProvider>
   );
 }
 

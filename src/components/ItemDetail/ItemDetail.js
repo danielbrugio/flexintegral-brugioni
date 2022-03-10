@@ -13,27 +13,16 @@ import Button from "../Button/Button";
 import { useNotificationServices } from '../../services/notification/NotificationServices'
 
 
-const ItemDetail = ({ id, name, img, category, description, price, stock }) => {
+const ItemDetail = ({ product, quantity }) => {
   const { addItem } = useContext(CartContext);
   const [counter, setCounter] = useState(0);
 
   const setNotification = useNotificationServices()
 
-  const handleOnAdd = (quantity) => {
-    setCounter(quantity)
-
-    const productToAdd = {
-      id,
-      name,
-      price,
-      img,
-      category,
-      description,
-      stock
-  }
-
-  addItem(productToAdd, quantity)
-  setNotification('success',`Se agrego ${name} al carrito`)
+  const onAdd = (quantity) => {
+    setCounter(quantity);
+  addItem(product, quantity)
+  setNotification('success',`${product.name} added to Cart`)
 }
 
 
@@ -47,22 +36,22 @@ const ItemDetail = ({ id, name, img, category, description, price, stock }) => {
               variant='h6'
               color='textPrimary'
               >
-              ${price}
+              ${product.price}
             
               </Typography>
             }
-        title={name}
-        subheader={description}
+        title={product.name}
+        subheader={product.description}
       />
       <CardMedia
         className='itemImg'
         component="img"
-        image={img}
-        alt={name}
+        image={product.img}
+        alt={product.name}
       />
       <CardContent>
          <Typography variant="body2" color="text.secondary">
-         Category: {category}
+         Category: {product.category}
         </Typography>
       </CardContent>
       <CardActions sx={{ 
@@ -70,15 +59,18 @@ const ItemDetail = ({ id, name, img, category, description, price, stock }) => {
       flexDirection: 'column',
       justifyContent: 'center',
       alignItems: 'center' }} >
-       {counter > 0 ? 
-        <Link to="/cart"> <Button name="Ckeckout" /> </Link>    :
-        <ItemCount stock={stock} initial={1} onAdd={handleOnAdd} />
-      }
+       {counter ? (
+        <Link to="/cart">
+          <Button name="Ckeckout" />
+        </Link>
+      ) : (
+        <ItemCount stock={product.stock} initial={1} onAdd={onAdd} />
+      )}
       </CardActions>
       
     </Card>
     </>
       )
-}
 
+    }
 export default ItemDetail
