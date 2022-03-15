@@ -7,8 +7,13 @@ import { useEffect, useState } from "react";
 import { getCategories } from "../../asyncmock";
 
 
+
+
+
 const NavBar = () => {
   const [categories, setCategories] = useState([])
+
+ 
 
   useEffect(() => {
     getCategories().then(categories => {
@@ -32,9 +37,7 @@ const NavBar = () => {
           <Nav className="navBar__list">
           {categories.map(cat => <NavLink key={cat.id} to={`/category/${cat.id}`} className="links">{cat.description}</NavLink>)}
            
-            <Nav.Link to="/ItemDetailContainer" className="links">
-              <CartIcon />
-            </Nav.Link>
+            <CartIcon />  
           </Nav>
         </Navbar.Collapse>
       </Container>

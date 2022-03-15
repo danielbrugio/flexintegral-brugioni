@@ -1,46 +1,80 @@
 import React, { useEffect, useState } from 'react';
 import './ItemListContainer.css';
 import ItemList from '../ItemList/ItemList';
-import { getProducts, getProductsByCategory } from '../../asyncmock';
-import { useParams } from 'react-router-dom';
-/* import { useNotificationServices } from '../../services/notification/NotificationServices' */
+import { NavLink, useParams } from 'react-router-dom';
+import { getDocs, collection, query, where } from "firebase/firestore"
+import { firestoreDb } from '../../services/firebase/firebase';
 
 const ItemListContainer = () => {
   const [products, setProducts] = useState([])
   const [loading, setLoading] = useState(true)
+  const [categories, setCategories] = useState([]);
   const { categoryId } = useParams();
 
-  /* const setNotification = useNotificationServices() */
-
   useEffect(() => {
-    if (categoryId) {
-      setTimeout(() => {
-        getProductsByCategory(categoryId).then((products) => {
-          setProducts(products);
-          setLoading(false);
+    setLoading(true);
+
+    const collectionRef = categoryId
+      ? query(
+          collection(firestoreDb, "products"),
+          where("category", "==", categoryId)
+        )
+      : collection(firestoreDb, "products");
+
+    getDocs(collectionRef)
+      .then((response) => {
+        const products = response.docs.map((doc) => {
+          return { id: doc.id, ...doc.data() };
         });
-      }, 2000);
-    } else {
-      getProducts().then((products) => {
+
         setProducts(products);
+      })
+      .catch((error) => {
+        console.log("error", `Products not found: ${error}`);
+      })
+      .finally(() => {
         setLoading(false);
       });
-    }
+
+    return () => {
+      setProducts();
+    };
   }, [categoryId]);
+
+  useEffect(() => {
+    getDocs(collection(firestoreDb, "category")).then((response) => {
+      const categories = response.docs.map((cat) => {
+        return { id: cat.id, ...cat.data() };
+      });
+      setCategories(categories);
+    });
+  }, []);
+
+
     
 
-  return <div>
-      <h1 className='titulo'>PRODUCTS</h1>
-      <div className="products">
-      {
-                loading ? 
-                    <h1>Loading...</h1> :  
-                products.length ? 
-                    <ItemList products={products}/> : 
-                    <h1>No products found!</h1>
-            }
-            </div>
-  </div>;
+  return <>
+      {loading ? (
+        <h1>Loading...</h1>
+      ) : (
+        <div className="itemListContainer">
+          <div className="category">
+            {categories.map((category) => (
+              <NavLink
+                key={category.id}
+                to={`/products/${category.description}`}
+                className="nav-link"
+              >
+                {category.description}
+              </NavLink>
+            ))}
+          </div>
+
+          <ItemList products={products} />
+        </div>
+      )}
+    </>
+ 
 };
 
 

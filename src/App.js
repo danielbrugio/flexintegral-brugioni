@@ -12,19 +12,22 @@ export const MyContext = React.createContext();
 const App = () => {
 
   return (
-    <NotificationServicesProvider>
-    <CartContext>
-    <BrowserRouter>
-    <NavBar />
-    <Routes>
-    <Route path='/' element={<ItemListContainer />} />
-    <Route path='/category/:categoryId' element={<ItemListContainer />} />    
-    <Route path='/detail/:productId' element={<ItemDetailContainer />} />    
-    <Route path='/cart' element={<Cart />} />    
-    </Routes>
-    </BrowserRouter>
-    </CartContext>
-    </NotificationServicesProvider>
+    <div>
+      <NotificationServicesProvider>
+      <CartContext>
+      <BrowserRouter>
+      <NavBar />
+      <Routes>
+      <Route path='/' element={<ItemListContainer />} />
+      <Route path='/category/:categoryId' element={<ItemListContainer />} />
+      <Route path='/detail/:productId' element={<ItemDetailContainer />} />
+      <Route path='/cart' element={<Cart />} />
+      <Route path='*' element={<h1>Not Found</h1>}/>
+      </Routes>
+      </BrowserRouter>
+      </CartContext>
+      </NotificationServicesProvider>
+    </div>
   );
 }
 
