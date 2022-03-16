@@ -22,7 +22,7 @@ const Cart = () => {
             {
                 products.map(prod => {
                     return (
-                        <div key={prod.id} style={{ display: 'flex'}}>
+                        <div key={prod.name} style={{ display: 'flex'}}>
                             <h3>{prod.name}</h3>
                             <h3>Cantidad {prod.quantity}</h3>
                             <button onClick={() => handleRemoveItem(prod.id, prod.name)}>X</button>
