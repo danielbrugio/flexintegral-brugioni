@@ -6,6 +6,7 @@ import NavBar from './components/NavBar/NavBar';
 import { CartContext } from './context/CartContext';
 import Cart from './components/Cart/Cart';
 import { NotificationServicesProvider } from './services/notification/NotificationServices';
+import Footer from './components/Footer/Footer';
 
 export const MyContext = React.createContext();
 
@@ -24,6 +25,7 @@ const App = () => {
       <Route path='/cart' element={<Cart />} />
       <Route path='*' element={<h1>Not Found</h1>}/>
       </Routes>
+      <Footer />
       </BrowserRouter>
       </CartContext>
       </NotificationServicesProvider>
