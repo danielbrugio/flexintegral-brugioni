@@ -2,7 +2,8 @@ import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { getProductById } from '../../services/firebase/firebase'
 import ItemDetail from '../ItemDetail/ItemDetail'
-import { useNotificationServices } from '../../services/notification/NotificationServices'
+import { useNotificationServices } from '../../services/notification/NotificationServices';
+
 
 const ItemDetailContainer = () => {
     const [product, setProduct] = useState()
