@@ -1,157 +1,121 @@
-import { useContext, useState } from "react"
+import { useState, useContext, useRef } from 'react'
+import './Cart.css'
+import Togglable from '../Togglable/Togglable'
+import ContactForm from '../ContactForm/ContactForm'
 import CartContext from '../../context/CartContext'
-import { useNotificationServices } from "../../services/notification/NotificationServices"
-import { addDoc, collection,updateDoc, doc, getDoc, writeBatch } from 'firebase/firestore'
-import { firestoreDb } from "../../services/firebase/firebase"
+import CartItem from '../CartItem/CartItem'
+import { writeBatch, getDocs, collection, addDoc, Timestamp, where, query, documentId } from 'firebase/firestore'
+import { firestoreDb } from '../../services/firebase/firebase'
+import { useNotificationServices } from '../../services/notification/NotificationServices'
 
 const Cart = () => {
-    const { products, removeItem, clearCart, getTotal } = useContext(CartContext)
-    const [processingOrder, setProcessingOrder] = useState(false);
-    const [orderFinished, setOrderFinished] = useState(false);
-    const [contact, setContact] = useState({
-        name: '',
-        phone: '',
-        address: '',
-        email: ''
-    })
+  const [processingOrder, setProcessingOrder] = useState(false)
+  const [contact, setContact] = useState({
+      name: '',
+      phone: '',
+      address: '',
+      comment: ''
+  })
+  const { products, clearCart, getTotal, removeItem } = useContext(CartContext)
+  
+  const contactFormRef = useRef()
 
+  const setNotification = useNotificationServices()
 
-    const confirmOrder = () => {
-          setProcessingOrder(true);
+  const confirmOrder = () => {
+      if(contact.phone !== '' && contact.address !== '' && contact.comment !== '' && contact.name !== '') {
+          setProcessingOrder(true)
+          
+          const objOrder = {
+              buyer: contact,
+              items: products,
+              total: getTotal(),
+              date: Timestamp.fromDate(new Date())
+          }
 
-    const objOrder = {
-        buyer: {
-            name: 'Daniel',
-            phone: '3516080591',
-            address: 'Armengol Tecera 95'
-        },
-        items: products,
-        total: getTotal(),
-        date: new Date()
-    }
-    addDoc(collection(firestoreDb, 'orders'), objOrder).then((response) => {
-        console.log(response)
-        setProcessingOrder(false)
-        clearCart()
-    })
-    }
-    /* const confirmOrder = () => {
-        if (
-          contact.phone !== "" &&
-          contact.address !== "" &&
-          contact.comment !== "" &&
-          contact.name !== ""
-        ) {
-          setProcessingOrder(true);
+          const batch = writeBatch(firestoreDb)
+          const outOfStock = []
+          
+          const ids = objOrder.items.map(i => i.id)
 
-    const objOrder = {
-        buyer: {
-            name: 'Daniel',
-            phone: '3516080591',
-            address: 'Armengol Tecera 95'
-        },
-        items: products,
-        total: getTotal(),
-        date: new Date()
-    }
-    console.log(objOrder)
-    const batch = writeBatch(firestoreDb);
-      const outOfStock = [];
+          getDocs(query(collection(firestoreDb, 'products'),where(documentId(), 'in', ids)))
+              .then(response => {
+                  response.docs.forEach((docSnapshot) => {
+                      if(docSnapshot.data().stock >= objOrder.items.find(prod => prod.id === docSnapshot.id).quantity) {
+                          batch.update(docSnapshot.ref, { stock: docSnapshot.data().stock - objOrder.items.find(prod => prod.id === docSnapshot.id).quantity})
+                      } else {
+                          outOfStock.push({id: docSnapshot.id, ...docSnapshot.data()})
+                      }
+                  })
+              }).then(() => {
+                  if(outOfStock.length === 0) {
+                      addDoc(collection(firestoreDb, 'orders'), objOrder).then(({id}) => { 
+                          batch.commit()
+                          clearCart()
+                          setNotification('success', `La orden se genero exitosamente, su numero de orden es: ${id}`)
+                      })
+                  } else {
+                      outOfStock.forEach(prod => {
+                          setNotification('error', `El producto ${prod.name} no tiene stock disponible`)
+                          removeItem(prod.id)
+                      })    
+                  }               
+              }).catch((error) => {
+                  setNotification('error', error)
+              }).finally(() => {
+                  setProcessingOrder(false)
+              })
 
-      const executeOrder = () => {
-        if (outOfStock.length === 0) {
-          addDoc(collection(firestoreDb, "orders"), objOrder)
-            .then(({ id }) => {
-              batch.commit().then(() => {
-                clearCart();
-                setNotification(
-                  "success",
-                  `La orden se genero exitosamente, su numero de orden es: ${id}`
-                );
-                setOrderFinished(true);
-              });
-            })
-            .catch((error) => {
-              setNotification("error", error);
-            })
-            .finally(() => {
-              setProcessingOrder(false);
-            });
-        } else {
-          outOfStock.forEach((prod) => {
-            setNotification(
-              "error",
-              `El producto ${prod} no tiene stock disponible`
-            );
-            removeItem(prod);
-          });
-        }
-    }
+      } else {
+           setNotification('error', 'Debe completar los datos de contacto para generar la orden')
+      }
+  }
 
-    objOrder.items.forEach((prod) => {
-        getDoc(doc(firestoreDb, "products", prod.item.id))
-          .then((response) => {
-            if (response.data().stock >= prod.quantity) {
-              batch.update(doc(firestoreDb, "products", response.id), {
-                stock: response.data().stock - prod.quantity,
-              });
-            } else {
-              outOfStock.push(response.data().album);
-            }
-          })
-          .catch((error) => {
-            console.log(error);
-          })
-          .then(() => {
-            executeOrder();
-          })
-          .finally(() => {
-            setProcessingOrder(false);
-          });
-      });
-    } else {
-      setNotification(
-        "error",
-        "Debe completar los datos de contacto para generar la orden"
-      );
-    }
-  }; */
+  if(processingOrder) {
+      return <h1>Se esta procesando su orden</h1>
+  }
 
+  if(products.length === 0) {
+      return (
+          <div>
+              <h1>Cart</h1>
+              <h2>No hay productos en el carrito</h2>
+          </div>
+      )
+  }
 
-
-    const setNotification = useNotificationServices()
-
-    if(products.length === 0) {
-        return <h1>There is no items in Cart</h1>
-    }
-
-    const handleRemoveItem = (id, name) => {
-        removeItem(id)
-        setNotification('success', `${name} remove from Cart`)
-    }
-
-    return (
-        <>
-            <h1>Cart</h1>
-            {
-                products.map(prod => {
-                    return (
-                        <div key={prod.name} style={{ display: 'flex'}}>
-                            <h3>{prod.name}</h3>
-                            <h3>Cantidad {prod.quantity}</h3>
-                            <button onClick={() => handleRemoveItem(prod.id, prod.name)}>X</button>
-                        </div>
-                    )
-            })}
-            <h1>Total: ${getTotal()}</h1>
-            <button onClick={() => clearCart()} className="Button">
-        Cancelar compra
-      </button>
-      <button onClick={() => confirmOrder()} className="Button">
-        Confirmar Compra
-      </button>
-        </>
-    )
+  return ( 
+      <div>
+          <h1>Cart</h1>
+          { products.map(p => <CartItem key={p.id} {...p}/>) }
+          <h3>Total: ${getTotal()}</h3>
+          <button onClick={() => clearCart()} className="Button">Cancelar compra</button>
+          <button onClick={() => confirmOrder()} className="Button">Confirmar Compra</button>
+          {
+              (contact.phone !== '' && contact.address !== '' && contact.comment !== '' && contact.name !== '') &&
+              
+                  <div>
+                      <h4>Nombre: {contact.name}</h4>
+                      <h4>Telefono: {contact.phone}</h4>
+                      <h4>Direccion: {contact.address}</h4>
+                      <h4>Comentario: {contact.comment}</h4>
+                      <button onClick={() => setContact({ phone: '', address: '', comment: ''})} 
+                              className='Button' 
+                              style={{backgroundColor: '#db4025'}}>
+                          Borrar datos de contacto
+                      </button>
+                  </div>    
+          }
+          <Togglable buttonLabelShow={
+                      (contact.phone !== '' && contact.address !== '' && contact.comment !== '' && contact.name !== '') 
+                          ? 'Editar contacto' 
+                          : 'Agregar contacto'
+                      } 
+                      ref={contactFormRef}>
+              <ContactForm toggleVisibility={contactFormRef} setContact={setContact} />
+          </Togglable>          
+      </div>
+  )
 }
 
 export default Cart
