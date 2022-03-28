@@ -4,7 +4,9 @@ import Logo from "../assets/Logo.png";
 import { CartIcon } from "../CartIcon/CartIcon";
 import { NavLink } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { getCategories } from "../../asyncmock";
+import { getDocs, collection } from 'firebase/firestore'
+import { firestoreDb } from '../../services/firebase/firebase'
+
 
 
 
@@ -16,11 +18,13 @@ const NavBar = () => {
  
 
   useEffect(() => {
-    getCategories().then(categories => {
+    getDocs(collection(firestoreDb, 'categories')).then(response => {
+      const categories = response.docs.map(cat => {
+        return { id: cat.id, ...cat.data()}
+      })
       setCategories(categories)
     })
-  
-  }, [])
+}, [])
   
 
 
