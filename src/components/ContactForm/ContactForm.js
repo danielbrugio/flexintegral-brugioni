@@ -25,10 +25,10 @@ const ContactForm = ({ toggleVisibility, setContact }) => {
 
   return (
     <div className="ContactContainer">
-      <div>Contacto</div>
+      <div>Contact information</div>
       <form className="ContactForm" onSubmit={handleContactForm}>
         <label className="LabelContact">
-          Nombre:
+          Name:
           <input
             className="InputContact"
             type="text"
@@ -37,7 +37,7 @@ const ContactForm = ({ toggleVisibility, setContact }) => {
           />
         </label>
         <label className="LabelContact">
-          Telefono:
+          Telephone:
           <input
             className="InputContact"
             type="text"
@@ -46,7 +46,7 @@ const ContactForm = ({ toggleVisibility, setContact }) => {
           />
         </label>
         <label className="LabelContact">
-          Direccion:
+          Address:
           <input
             className="InputContact"
             type="text"
@@ -55,7 +55,7 @@ const ContactForm = ({ toggleVisibility, setContact }) => {
           />
         </label>
         <label className="LabelContact">
-          Comentario:
+          Comment:
           <input
             className="InputContact"
             type="text"
@@ -64,7 +64,7 @@ const ContactForm = ({ toggleVisibility, setContact }) => {
           />
         </label>
         <button className="Button" type="submit">
-          Confirmar
+          Confirm
         </button>
       </form>
     </div>

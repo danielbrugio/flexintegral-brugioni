@@ -19,7 +19,7 @@ const ItemDetailContainer = () => {
         getProductById(productId).then(response => {
             setProduct(response)
         }).catch((error) => {
-            setNotification('error',`Error buscando producto: ${error}`)
+            setNotification('error',`Product not found: ${error}`)
         }).finally(() => {
             setLoading(false)
         })
@@ -35,10 +35,10 @@ const ItemDetailContainer = () => {
         <div className="ItemDetailContainer" >
             { 
                 loading ? 
-                    <h1>Cargando...</h1> :
+                    <h1>Loading...</h1> :
                 product ? 
                     <ItemDetail  product={product}/> :
-                    <h1>El producto no existe</h1> 
+                    <h1>Product not found</h1> 
             }
         </div>
     )    

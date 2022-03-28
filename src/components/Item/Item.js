@@ -7,6 +7,7 @@ import CardContent from '@mui/material/CardContent';
 import CardActions from '@mui/material/CardActions';
 import Typography from '@mui/material/Typography';
 import { Link } from 'react-router-dom';
+import Button from "../Button/Button";
 
 
 
@@ -46,7 +47,9 @@ export default function Item({product}) {
       justifyContent: 'center',
       alignItems: 'center' }} >
       <footer>
-        <Link to={`/detail/${product.id}`}>Ver detalle</Link>
+        <Link to={`/detail/${product.id}`}>
+        <Button name="Show Details" />
+        </Link>
       </footer>
       </CardActions>
     </Card>

@@ -19,10 +19,10 @@ const CartItem = ({ id, name, quantity, price }) => {
             </header>
             <section className='ContainerItemCartItem'>
                 <p className="InfoCartItem">
-                    Cantidad: {quantity}
+                    Quantity: {quantity}
                 </p>
                 <p className="InfoCartItem">
-                    Precio x Unidad: ${price}
+                    Unit price: ${price}
                 </p>
             </section>           
             <footer className='ItemFooterCartItem'>

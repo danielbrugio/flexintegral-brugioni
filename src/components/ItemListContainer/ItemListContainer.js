@@ -32,10 +32,10 @@ return (
   <div className="ItemListContainer">
       {
           loading ? 
-              <h1>Cargando...</h1> :  
+              <h1>Loading...</h1> :  
           products.length ? 
               <ItemList products={products}/> : 
-              <h1>No se encontraron productos!</h1>
+              <h1>There are no products!</h1>
       }
   </div>
 )    

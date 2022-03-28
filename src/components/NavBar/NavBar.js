@@ -7,15 +7,8 @@ import { useEffect, useState } from "react";
 import { getDocs, collection } from 'firebase/firestore'
 import { firestoreDb } from '../../services/firebase/firebase'
 
-
-
-
-
-
 const NavBar = () => {
   const [categories, setCategories] = useState([])
-
- 
 
   useEffect(() => {
     getDocs(collection(firestoreDb, 'categories')).then(response => {
@@ -26,8 +19,6 @@ const NavBar = () => {
     })
 }, [])
   
-
-
   return (
     <Navbar className="navBar" expand="sm">
       <Container>
@@ -40,7 +31,6 @@ const NavBar = () => {
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="navBar__list">
           {categories.map(cat => <NavLink key={cat.id} to={`/category/${cat.id}`} className="links">{cat.description}</NavLink>)}
-           
             <CartIcon />  
           </Nav>
         </Navbar.Collapse>
