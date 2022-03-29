@@ -1,3 +1,18 @@
+# SAMSUNG STORE
+
+## Curso de React JS de CoderHouse Camada 24925
+
+### Desarrollado por Daniel Brugioni
+- Email: daniel.brugioni@hotmail.com
+- GitHub: https://github.com/danielbrugio/flexintegral-brugioni
+- LinkedIn: https://www.linkedin.com/in/daniel-brugioni/
+
+![Demo](../react-e-commerce/src/components/assets/aa4c88f4-831e-4fb6-b1ec-e154ba718722.gif)
+
+
+
+
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
