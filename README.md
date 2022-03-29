@@ -7,7 +7,7 @@
 - GitHub: https://github.com/danielbrugio/flexintegral-brugioni
 - LinkedIn: https://www.linkedin.com/in/daniel-brugioni/
 
-![Demo](../react-e-commerce/src/components/assets/aa4c88f4-831e-4fb6-b1ec-e154ba718722.gif)
+![Demo](https://github.com/danielbrugio/flexintegral-brugioni/blob/main/src/components/assets/aa4c88f4-831e-4fb6-b1ec-e154ba718722.gif)
 
 
 
