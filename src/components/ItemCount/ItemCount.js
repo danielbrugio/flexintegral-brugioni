@@ -1,8 +1,7 @@
-import React, {useState} from 'react';
-import './itemCount.css';
-import { Button } from '@mui/material';
-import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
-
+import React, { useState } from "react";
+import "./ItemCount.css";
+import { Button } from "@mui/material";
+import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
 
 const ItemCount = ({ stock, initial, onAdd }) => {
   const [count, setCount] = useState(initial);
@@ -20,27 +19,36 @@ const ItemCount = ({ stock, initial, onAdd }) => {
   };
 
   return (
-    <div className='buttons'>
-    <div className='buttonCount'>
-        <Button variant="text"  onClick={()=> decrement() }  >
-              -
-          </Button>
-          <h5>{count}</h5>
-          <Button variant="text"  onClick={()=> increment() }  >
-              +
-          </Button>
+    <div className="buttons">
+      <div className="buttonCount">
+        <Button variant="text" onClick={() => decrement()}>
+          -
+        </Button>
+        <h5>{count}</h5>
+        <Button variant="text" onClick={() => increment()}>
+          +
+        </Button>
       </div>
-        <div className='buttonsAddToCart'>
+      <div>
         {count === 0 ? (
-          <Button margin=".5rem 0 0 0" widthButton="100%" name="Invalid quantity" />
+          <Button
+            margin=".5rem 0 0 0"
+            widthButton="100%"
+            name="Invalid quantity"
+          />
         ) : (
-          <Button variant="contained" startIcon={<AddShoppingCartIcon  />} aria-label="Add to Cart" onClick={() => onAdd(count)} >
-          Add to cart
+          <Button
+            variant="contained"
+            startIcon={<AddShoppingCartIcon />}
+            aria-label="Add to Cart"
+            onClick={() => onAdd(count)}
+          >
+            Add to cart
           </Button>
         )}
-        </div>
+      </div>
     </div>
-  )
-}
+  );
+};
 
-export default ItemCount
+export default ItemCount;

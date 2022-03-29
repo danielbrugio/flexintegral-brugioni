@@ -1,10 +1,12 @@
+import "./ContactForm.css";
 import { useState } from "react";
+import Button from "../Button/Button";
 
 const ContactForm = ({ toggleVisibility, setContact }) => {
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
   const [address, setAddress] = useState("");
-  const [comment, setComment] = useState("");
+  const [email, setEmail] = useState("");
 
   const handleContactForm = (e) => {
     e.preventDefault();
@@ -14,18 +16,18 @@ const ContactForm = ({ toggleVisibility, setContact }) => {
       name,
       phone,
       address,
-      comment,
+      email,
     };
     setContact(objContact);
     setName("");
     setPhone("");
     setAddress("");
-    setComment("");
+    setEmail("");
   };
 
   return (
     <div className="ContactContainer">
-      <div>Contact information</div>
+      <div className="Tittle">Contact information</div>
       <form className="ContactForm" onSubmit={handleContactForm}>
         <label className="LabelContact">
           Name:
@@ -40,7 +42,7 @@ const ContactForm = ({ toggleVisibility, setContact }) => {
           Telephone:
           <input
             className="InputContact"
-            type="text"
+            type="number"
             value={phone}
             onChange={({ target }) => setPhone(target.value)}
           />
@@ -55,17 +57,15 @@ const ContactForm = ({ toggleVisibility, setContact }) => {
           />
         </label>
         <label className="LabelContact">
-          Comment:
+          Email:
           <input
             className="InputContact"
-            type="text"
-            value={comment}
-            onChange={({ target }) => setComment(target.value)}
+            type="email"
+            value={email}
+            onChange={({ target }) => setEmail(target.value)}
           />
         </label>
-        <button className="Button" type="submit">
-          Confirm
-        </button>
+        <Button name="Confirm contact information" type="submit" />
       </form>
     </div>
   );

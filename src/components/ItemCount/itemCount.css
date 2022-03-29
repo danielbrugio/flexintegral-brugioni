@@ -3,7 +3,7 @@
     flex-direction: column;
 }
 
-.buttonsQuantity {
+.buttonCount {
     display: flex;
     border: solid 1px black;
     align-items: center;

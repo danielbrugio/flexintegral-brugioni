@@ -1,0 +1,23 @@
+/* .ContactContainer {
+
+} */
+
+.Tittle {
+    font-size: 1.5em;
+    font-weight: bold;
+}
+
+.ContactForm {
+    display: flex;
+    flex-direction: column;
+    margin: 10px;
+}
+
+.LabelContact {
+    font-size: 1.2em;
+    margin-bottom: 10px;
+}
+
+.InputContact {
+    margin-left: 10px;
+}

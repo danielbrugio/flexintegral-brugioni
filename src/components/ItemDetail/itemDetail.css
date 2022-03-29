@@ -1,3 +1,8 @@
+.container {
+    display: flex;
+    justify-content: center;
+}
+
 .itemCard {
     display: flex;
     flex-direction: column;
@@ -9,4 +14,11 @@
     max-width: fit-content;
     max-height: 200px;
     align-self: center;
+}
+
+.cardFooter {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center
 }
