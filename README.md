@@ -1,8 +1,8 @@
 # SAMSUNG STORE
 
-## Curso de React JS de CoderHouse Camada 24925
+E-commerce app, created with React, React-Router and Firebase.
 
-### Desarrollado por Daniel Brugioni
+### Developed by Daniel Brugioni
 - Email: daniel.brugioni@hotmail.com
 - GitHub: https://github.com/danielbrugio/flexintegral-brugioni
 - LinkedIn: https://www.linkedin.com/in/daniel-brugioni/
@@ -10,76 +10,64 @@
 ![Demo](https://github.com/danielbrugio/flexintegral-brugioni/blob/main/src/components/assets/aa4c88f4-831e-4fb6-b1ec-e154ba718722.gif)
 
 
+## Project information:
 
+### Setup
+To run this app you need to install npm in you local computer:
+```
+$ cd ../flexintegral-brugioni
+$ npx create-react-app app-name
+$ npm install
+$ npm start
+```
 
+After that, you need to install Firebase:
+```
+$ cd ../flexintegral-brugioni
+$ npm install firebase
+```
 
-# Getting Started with Create React App
+Then you need to configure the enviroment variables that Firebase provides you, such as:
+* apiKey
+* authDomain
+* projectId
+* storageBucket
+* messagingSenderId
+* appId
+* measurementId
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+If you want to add more products to the Firebase database, you'll need to create 2 (two) collections:
+**_categories_**: These will render in the NavBar component, and you'll create as many as needed.
+**_products_**: Here you'll add the products you want to sell. The format requires 6 (six) key.values, which are (example added):
+* category (string) : "notebook-tv-smartphone"
+* description (string) : "Color:Mystic Black"
+* img (string) : "url link to the image"
+* name (string & numbers) : "Galaxy Tab S7+"
+* price (number) : "210000"
+* stock (number) : "5"
 
-## Available Scripts
+A third collection name **_orders_** will be created automatically by Firebase when someone confirm an order in the cart.
 
-In the project directory, you can run:
+### React Routes and navegability
+This app uses React Router, avoiding the page to refresh everytime it changes it's route:
 
-### `npm start`
+* NavBar:
+ Here you will see the categories of the products that were created in Firebase database. Navbar is visible all the time, in every route you choose because is outside the app routes. 
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+* ItemListContainer:
+ It's displayed in the Home page and show all products, but if you click on any category, it will filter and dysplay the products matching this category
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+* ItemDetailContainer:
+ Here you'll see only 1 (one) product, filtering by using productId with useParam hook. In this view, the user have the chance to add the desired quantity of this product in to the cart, suing useState and useContext to store the state in "Cart".
 
-### `npm test`
+* CartIcon:
+ This receives the cart item quantity and displays it in the NavBar. If you click here, it will route you to Cart
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+* Cart:
+ Here are displayed the products added previously in the ItemDetailContainer, showing quantity, unit price, sub-total and total to pay.
 
-### `npm run build`
+* ContacForm:
+ Before confirm the order, the user must complete this form with the contact information.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+* CartContext:
+ This component includes varied functions and the cart state. Using Context Provider wrapping all the app components, these functions and state are global to it's children
