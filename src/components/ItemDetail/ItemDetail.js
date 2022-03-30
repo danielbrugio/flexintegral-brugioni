@@ -1,5 +1,5 @@
 import React, { useContext, useState } from "react";
-import "./ItemDetail.css";
+import "./itemDetail.css";
 import Card from "@mui/material/Card";
 import CardHeader from "@mui/material/CardHeader";
 import CardMedia from "@mui/material/CardMedia";
