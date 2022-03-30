@@ -62,3 +62,4 @@ const ItemDetail = ({ product, quantity }) => {
   );
 };
 export default ItemDetail;
+
