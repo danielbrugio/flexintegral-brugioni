@@ -165,7 +165,7 @@ const Cart = () => {
             contact.name !== "" && (
               <div>
                 <h4>Name: {contact.name}</h4>
-                <h4>Telephone: {contact.phone}</h4>
+                <h4>Phone: {contact.phone}</h4>
                 <h4>Address: {contact.address}</h4>
                 <h4>Email: {contact.email}</h4>
                 <Button
