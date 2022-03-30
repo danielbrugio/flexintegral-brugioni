@@ -10,6 +10,7 @@ const Button = ({
   widthButton,
   disabled,
   fontSize,
+  type,
 }) => {
   return (
     <button
@@ -21,6 +22,7 @@ const Button = ({
         backgroundColor: backgroundColor,
         color: colorText,
         width: widthButton,
+        type,
       }}
       onClick={handleClick}
     >

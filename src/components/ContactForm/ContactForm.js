@@ -1,74 +1,81 @@
-import "./ContactForm.css";
-import { useState } from "react";
-import Button from "../Button/Button";
+import { Formik, Form, Field } from 'formik'
+import Button from '../Button/Button';
+import './ContactForm.css'
 
-const ContactForm = ({ toggleVisibility, setContact }) => {
-  const [name, setName] = useState("");
-  const [phone, setPhone] = useState("");
-  const [address, setAddress] = useState("");
-  const [email, setEmail] = useState("");
+  const validateName = value => {
+    let error;
+    if (!value) {
+      error = 'Please type your name';
+    } else if (value.length <= 3) {
+      error = 'Please type more than 3 caracters';
+    }
+    return error;
+  }
 
-  const handleContactForm = (e) => {
-    e.preventDefault();
-    toggleVisibility.current.toggleVisibility();
+  const validateEmail = value => {
+    let error;
+    if (!value) {
+      error = 'Please type your email';
+    } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(value)) {
+      error = 'Invalid email';
+    }
+    return error;
+  }
 
-    const objContact = {
-      name,
-      phone,
-      address,
-      email,
-    };
-    setContact(objContact);
-    setName("");
-    setPhone("");
-    setAddress("");
-    setEmail("");
-  };
+  const validatePhone = value => {
+    let error;
+    if (!value) {
+      error = 'Please type your phone number';
+    } else if (!/^\d+$/.test(value)) {
+      error = "Invalid phone. Type only numbers."
+    }
+    return error;
+  }
 
-  return (
-    <div className="ContactContainer">
-      <div className="Tittle">Contact information</div>
-      <form className="ContactForm" onSubmit={handleContactForm}>
-        <label className="LabelContact">
-          Name:
-          <input
-            className="InputContact"
-            type="text"
-            value={name}
-            onChange={({ target }) => setName(target.value)}
-          />
-        </label>
-        <label className="LabelContact">
-          Telephone:
-          <input
-            className="InputContact"
-            type="number"
-            value={phone}
-            onChange={({ target }) => setPhone(target.value)}
-          />
-        </label>
-        <label className="LabelContact">
-          Address:
-          <input
-            className="InputContact"
-            type="text"
-            value={address}
-            onChange={({ target }) => setAddress(target.value)}
-          />
-        </label>
-        <label className="LabelContact">
-          Email:
-          <input
-            className="InputContact"
-            type="email"
-            value={email}
-            onChange={({ target }) => setEmail(target.value)}
-          />
-        </label>
-        <Button name="Confirm contact information" type="submit" />
-      </form>
-    </div>
-  );
-};
+  const validateAddress = value => {
+    let error;
+    if (!value) {
+      error = 'Please type your delivery address';
+    } else if (value.length <= 8) {
+      error = "Please type an address with 8 caracters at least"
+    }
+    return error;
+  }
+  
+const ContactForm = ({ contactFormRef, setContact }) => {
+    
+    return (     
+      <div>
+          <h3>Buyer information</h3>
+      <Formik initialValues={{
+        name: '',
+        email: '',
+        phone: '',
+        address: '',
+      }} 
+      onSubmit={values => {
+        setContact(values);
+        contactFormRef.toggleVisibility()
+      }}
+      >
+      {({ errors, touched, }) => (
+      <Form className='ContactForm'>
+        <label className='LabelContact'>Name:
+        <Field name="name" validate={validateName} className="InputContact"/>
+        {errors.name && touched.name && <div>{errors.name}</div>}</label>
+        <label className='LabelContact'>Email:
+        <Field name="email" validate={validateEmail} className="InputContact"/>
+        {errors.email && touched.email && <div>{errors.email}</div>}</label>
+        <label className='LabelContact'>Phone:
+        <Field name="phone" validate={validatePhone} className="InputContact"/>
+        {errors.phone && touched.phone && <div>{errors.phone}</div>}</label>
+        <label className='LabelContact'>Address:
+        <Field name="address" validate={validateAddress} className="InputContact"/>
+        {errors.address && touched.address && <div>{errors.address}</div>}</label>
+        <Button name='Confirm information'/>
+      </Form>)}
+      </Formik>
+      </div> )
+}
 
-export default ContactForm;
+export default ContactForm
